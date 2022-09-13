@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Home - My Blog{% endblock %}
 
 {% block content %}
+<img src="{% static 'Logo.jpg' %}" alt="">
 <h2>Hello Online Team Inc.</h2>
 {% endblock %}
