@@ -1,6 +1,6 @@
 #from django.contrib.auth.models import User
 from django.db import models
-#from django.utils import timezone
+from django.utils import timezone
 
 '''
 class BlogTag(models.Model):
@@ -18,23 +18,24 @@ class BlogTag(models.Model):
 # Create your models here.
 
 class BlogPost(models.Model):
-    title = models.CharField('Title', max_length=120, blank=False, null=False)
+    title = models.CharField('Title', max_length=120, blank=False, null=False) 
+    slug = models.SlugField('Slug', editable=False, max_length=180, unique=True, default=timezone.now)
     content = models.TextField('Content', max_length=800, blank=False, null=False)
     
     #slug = models.SlugField('Slug', editable=False, max_length=180, unique=True, default=timezone.now)
-    #banner = models.ImageField('Image', upload_to='images/', blank=True,
+       #banner = models.ImageField('Image', upload_to='images/', blank=True,
     #                             null=True, default='images/default_image.png')
     #user = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False,
     #                        verbose_name='Author')
     #tags = models.ManyToManyField(BlogTag, verbose_name='Tags')
-    '''
+    
     def __str__(self):
         return self.title
 
     def save(self, *args, **kwargs):
         self.slug = str(self.title).strip().replace(' ', '-')
         super().save(*args, **kwargs)
-
+'''
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False,
