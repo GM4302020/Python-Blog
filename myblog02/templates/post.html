@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}OT Shipping Blog - {{article.title}}{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col">
+            <h1 class="h4">{{article.title}}</h1>
+            <h5 class="h6"><span class="text-muted">Author:</span> {{article.user.email}}</h5>
+            <div class="mb-2">
+                {% for tag in article.tags.all %}
+                    <a href="{% url 'tag' tag.slug %}">
+                        <span class="badge text-bg-secondary p-1">{{tag.name}}</span>
+                    </a>
+                {% endfor %}
+            </div>
+            <img class="img-fluid" src="{{article.banner.url}}" alt="{{article.title}}">
+            <p class="mt-4">{{article.content}}</p>
+        </div>
+    </div>
+
+
+
+</div>
+
+{% endblock %}
+<!--
+<div class="container mt-4">
+    <div class="row">
+        <div class="col">
+            <h1 class="h4">{{article.title}}</h1>
+            <h5 class="h6"><span class="text-muted">Author:</span> {{article.user.email}}</h5>
+            <div class="mb-2">
+                {% for tag in article.tags.all %}
+                    <a href="{% url 'tag' tag.slug %}">
+                        <span class="badge badge-secondary p-1">{{tag.name}}</span>
+                    </a>
+                {% endfor %}
+            </div>
+            <img class="img-fluid" src="{{article.banner.url}}" alt="{{article.title}}">
+            <p class="mt-4">{{article.content}}</p>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col">
+            <div class="col-12">
+                {% if user.is_authenticated %}
+                <h3>Leave A Comment</h3>
+                <form method="POST">
+
+                    <textarea name="review" id="review_id" placeholder="your review ..." cols="30" rows="10"></textarea>
+                    <input type="hidden" name="post_id" id="post_id" value="{{article.pk}}">
+                    <input type="hidden" name="user_id" id="user_id" value="{{user.pk}}">
+                    <button type="submit" id="btn-add-review" data-csrftoken="{{csrf_token}}"
+                     class="btn btn-primary">Add review</button>
+
+                </form>
+                {% else %}
+                <h3>Please <a href="{% url 'login' %}">Login</a> And Leave A Comment</h3>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    {% if comments|length > 0 %}
+
+    <div class="row mt-4">
+        <div class="col">
+            <div class="col-12">
+                <h3>People Says: </h3>
+                {% for comment in comments %}
+                    <div class="bg-light p-2 m-1">
+                        <p class="badge badge-info p-1">{{comment.user.username}}</p>
+                        <strong>{{comment.review}}</strong>
+                        {% if comment.user == user %}
+                        <br>
+                        <a href="{% url 'deletereview' comment.pk %}" 
+                            class="btn btn-danger btn-sm" role="button">Delete</a>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+-->

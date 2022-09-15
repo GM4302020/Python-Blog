@@ -1,10 +1,8 @@
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from .models import BlogTag, BlogPost
 
 class HomeView(ListView):
-    #model = BlogTag
     template_name= 'index.html'
-    #context_object_name = 'tags'
 
     def get_queryset(self, *args, **kwargs):
         query = BlogPost.objects.all().order_by('-pk')
@@ -15,5 +13,25 @@ class HomeView(ListView):
         context['posts'] = self.get_queryset()
         context['tags'] = BlogTag.objects.all()
         return context
+
+class SinglePostView(DetailView):
+    model = BlogPost
+    template_name = 'post.html'
+    context_object_name = 'article'
+
+    def get_queryset(self, *args, **kwargs):
+        query = BlogPost.objects.filter(slug=self.kwargs['slug'])
+        return query
+
+class PostsTagView(ListView):
+    model = BlogPost
+    template_name = 'posts.html'
+    context_object_name = 'posts_article'
+
+    def get_queryset(self, *args, **kwargs):
+        query = BlogPost.objects.filter(tags__slug=self.kwargs['slug'])
+        return query
+
+
 
 # Create your views here.
