@@ -5,7 +5,7 @@ class HomeView(ListView):
     template_name = 'index.html'
 
     def get_queryset(self, *args, **kwargs):
-        query = BlogPost.objects.all().order_by('-pk')
+        query = BlogPost.objects.all().order_by('pk')
         return query
 
     def get_context_data(self, *args, **kwargs):
@@ -32,7 +32,7 @@ class SinglePostView(DetailView):
 class PostsTagView(ListView):
     model = BlogPost
     template_name = 'posts.html'
-    context_object_name = 'posts_article'
+    context_object_name = 'articles'
 
     def get_queryset(self, *args, **kwargs):
         query = BlogPost.objects.filter(tags__slug=self.kwargs['slug'])

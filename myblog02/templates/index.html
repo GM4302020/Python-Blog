@@ -9,12 +9,12 @@
     <div class="row">
         <div class="col-1"></div>
         <div class="col-7">
-            <h1 class="h-5">
-                <a href="{% url 'article' posts.4.slug %}">
-                    {{posts.4.title}}
+            <h1 class="h-4">
+                <a href="{% url 'article' posts.first.slug %}">
+                    {{posts.first.title}}
                 </a>
             </h1>
-            <img class="img-fluid" src="{{posts.4.banner.url}}" alt="{{posts.4.title}}">
+            <img class="img-fluid" src="{{posts.first.banner.url}}" alt="{{posts.first.title}}">
         </div>
         <div class="col-1"></div>
         <div class="col-3">
@@ -22,17 +22,18 @@
             {% if tags %}
                 {% for tag in tags %}
                     <a href="{% url 'tag' tag.slug %}">
-                        <span class="badge text-bg-info p-1">{{tag.name}}</span> 
-                    </a>
+                        <span class="badge text-bg-info p-1 text-decoration-none" >{{tag.name}}</span>
+                    </a>   
                 {% endfor %}
             {% endif %}
         </div>
     </div>
 </div>
+
 <div class="container mt-4">
     <div class="row">
         {% for post in posts %}
-            {% if forloop.counter != 5 %}
+            {% if forloop.counter > 1 %}
                 <div class="col-3 mb-2 mt-5">
                     <h2 class="h5 h-15 mt-4">
                         <a href="{% url 'article' post.slug %}">{{post.title}}</a>

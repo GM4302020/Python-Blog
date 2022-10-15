@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}OT Shipping Blog - {{article.title}}{% endblock %}
+{% block title %}OT Shipping Blog - {{article.title}}{% endblock %} 
 
 {% block content %}
 
@@ -9,7 +9,7 @@
     <div class="row">
         <div class="col">
             <h1 class="h4">{{article.title}}</h1>
-            <h5 class="h6"><span class="text-muted">Author:</span> {{article.user.email}}</h5>
+            <h5 class="h6"><span class="text-muted">Author:</span>{{article.user.email}}</h5>
             <div class="mb-2">
                 {% for tag in article.tags.all %}
                     <a href="{% url 'tag' tag.slug %}">
