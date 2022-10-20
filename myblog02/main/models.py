@@ -34,8 +34,6 @@ class BlogPost(models.Model):
         self.slug = str(self.title).strip().replace(' ', '-')
         super().save(*args, **kwargs)
 
-'''
-
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=False, null=False,
                             verbose_name='User')
@@ -45,8 +43,8 @@ class Comment(models.Model):
 
     def __str__(self):
         if len(self.review) >= 10:
-            return self.review[:10] + ' ...'
+            return self.user.username + ": " +self.review[:10] + ' ...'
         else:
             return self.review
 
-    '''
+    
