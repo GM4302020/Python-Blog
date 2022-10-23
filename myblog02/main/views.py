@@ -70,6 +70,8 @@ class ReviewOnPost(CreateView):
         post_id = request.POST['post_id']
         review = request.POST['review']
 
+        print(user_id, post_id, review)
+
         # saving data
 
         return super(ReviewOnPost, self).post(request, *args, **kwargs)

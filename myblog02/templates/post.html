@@ -25,20 +25,25 @@
     <div class="row mt-4">
         <div class="col">
             <div class="col-12">
-                <h3>Leave a Comment</h3>
+                {% if user.is_authenticated %}
+                <h3>Leave A Comment</h3>
                 <form method="POST">
 
-                    <textarea name="review" id="review_1d" placeholder="your review ..." cols="30" rows="10"></textarea>
+                    <textarea name="review" id="review_id" placeholder="your review ..." cols="30" rows="10"></textarea>
                     <input type="hidden" name="post_id" id="post_id" value="{{article.pk}}">
                     <input type="hidden" name="user_id" id="user_id" value="{{user.pk}}">
                     <button type="submit" id="btn-add_review" data-csrftoken="{{csrf_token}}" 
                     class="btn btn-primary">Add review</button>
 
                 </form>
+                {% else %}
+                <h3>Please <a href="{% url 'login' %}">Login</a> And Leave A Comment</h3>
+                {% endif %}
             </div>
         </div>
     </div>
 
+    {% if comments|length > 0 %}
 
     <div class="row mt-4">
         <div class="col">
@@ -52,6 +57,7 @@
                 {% endfor %}
             </div>
         </div>
+        {% endif %}
     </div>
     
 
@@ -59,6 +65,8 @@
 </div>
 
 {% endblock %}
+
+
 <!--
 <div class="container mt-4">
     <div class="row">
