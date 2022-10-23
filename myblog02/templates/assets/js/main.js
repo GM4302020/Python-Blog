@@ -1,7 +1,7 @@
-$(document).ready(function(){
-    alert('hello')
-})
 
+$(document).ready(function(){
+    alert("hello")
+})
 /*
 $(document).ready(function(){
     $('#btn-add-review').click(function(e){
