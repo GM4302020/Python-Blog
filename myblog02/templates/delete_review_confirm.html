@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - Delete Review{% endblock %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <div class="row">
+        <form method="post">
+            {% csrf_token %}
+            <div class="alert alert-danger">
+                Are you sure?
+            </div>
+            <button type="submit" class="btn btn-danger">Yes</button>
+            <a href="{% url 'home' %}" class="btn btn-success" role="button">No</a>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

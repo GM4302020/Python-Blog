@@ -1,10 +1,16 @@
 from multiprocessing import context
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import (ListView,
+                                    DetailView, 
+                                    CreateView, 
+                                    UpdateView,
+                                    DeleteView,
+                                    View)
 from django.urls import reverse_lazy
+from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CustomChangeUserForm
-from django.contrib.auth.models import User
 from .models import BlogTag, BlogPost, Comment
+
 
 class HomeView(ListView):
     template_name = 'index.html'
@@ -28,7 +34,7 @@ class SinglePostView(DetailView):
         query = BlogPost.objects.filter(slug=self.kwargs['slug'])
         return query
 
-    def get_context_data(self, *args,**kwargs):
+    def get_context_data(self, *args, **kwargs):
         context = super(SinglePostView, self).get_context_data(**kwargs)
         context['comments'] = Comment.objects.filter(post__slug=self.kwargs['slug'])
         return context
@@ -43,10 +49,9 @@ class PostsTagView(ListView):
         query = BlogPost.objects.filter(tags__slug=self.kwargs['slug'])
         return query
 
-
 class SignUpView(CreateView):
     '''
-    regidtration view
+    registeration view
     '''
     form_class = UserCreationForm
     template_name = 'signup.html'
@@ -63,7 +68,8 @@ class ProfieView(UpdateView):
 class ReviewOnPost(CreateView):
     model = Comment
     template_name = 'post.html'
-    fields = ('user', 'post', 'review')
+    # fields = ('user', 'post', 'review')
+    fields = '__all__'
 
     def post(self, request, *args, **kwargs):
         user_id = request.POST['user_id']
@@ -73,10 +79,19 @@ class ReviewOnPost(CreateView):
         print(user_id, post_id, review)
 
         # saving data
+        new_comment = Comment(
+            user=User.objects.get(pk=user_id),
+            post=BlogPost.objects.get(pk=post_id),
+            review=review
+        )
+        new_comment.save()
 
         return super(ReviewOnPost, self).post(request, *args, **kwargs)
 
-
+class DeleteReview(DeleteView):
+    model = Comment
+    template_name = 'delete_review_confirm.html'
+    success_url = reverse_lazy('home')
 
 
 # Create your views here.

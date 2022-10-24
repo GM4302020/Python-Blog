@@ -1,10 +1,5 @@
-
 $(document).ready(function(){
-    alert("hello")
-})
-/*
-$(document).ready(function(){
-    $('#btn-add-review').click(function(e){
+    $('#btn-add_review').click(function(e){
         e.preventDefault()
 
         var user_id = $('#user_id').val()
@@ -33,4 +28,3 @@ $(document).ready(function(){
 
     })
 })
-*/
